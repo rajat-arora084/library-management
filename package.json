@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rajat-arora084/library-management#readme",
   "dependencies": {
+    "mysql": "^2.18.1",
     "readline-sync": "^1.4.10"
   }
 }
