@@ -1,0 +1,22 @@
+{
+  "name": "library-management",
+  "version": "1.0.0",
+  "description": "A library management system with Node JS & MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajat-arora084/library-management.git"
+  },
+  "author": "arora.rajat084",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajat-arora084/library-management/issues"
+  },
+  "homepage": "https://github.com/rajat-arora084/library-management#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
