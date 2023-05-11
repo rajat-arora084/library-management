@@ -1,5 +1,6 @@
 const readLine = require("readline-sync");
 const showAllBooks = require("./showBooks");
+const borrowBook = require("./borrowBook");
 
 const mainMenu = () => {
   console.log("*****************MAIN MENU************************");
@@ -16,6 +17,7 @@ const mainMenu = () => {
       return;
     }
     case 2: {
+      borrowBook();
       return;
     }
     case 3: {

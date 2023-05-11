@@ -10,7 +10,7 @@ const promptForMainMenu = () => {
   }
 };
 
-const showAllBooks = () => {
+const showAllBooks = (callback) => {
   console.log("***********All Books*********************");
   console.log("Id \t Name \t \t Remaining Count");
   connection.query("Select * from books", (err, res, fields) => {
@@ -20,14 +20,22 @@ const showAllBooks = () => {
         res.map(({ id, name, count }) =>
           console.log(id, "\t", name, "\t\t\t", count)
         );
+        callback(res);
       }
     } catch (err) {
       console.log("Some error occured while fetching Books data");
+      callback([]);
     } finally {
-      promptForMainMenu();
       console.log("*****************************************");
     }
   });
 };
 
-module.exports = showAllBooks;
+const showBooks = () => {
+  showAllBooks(promptForMainMenu);
+};
+
+module.exports = {
+  showAllBooks: showAllBooks,
+  showBooks: showBooks,
+};
