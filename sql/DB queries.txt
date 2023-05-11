@@ -1,0 +1,59 @@
+-- -----------------DDL--------------------
+
+create table users(
+id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50)
+);
+
+
+create table books(
+id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50),
+count INT NOT NULL
+) AUTO_INCREMENT=1000;
+
+create table user_books(
+id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
+userId INT NOT NULL,
+bookId INT NOT NULL,
+CONSTRAINT fk_users FOREIGN KEY (userId) REFERENCES users(id),
+CONSTRAINT fk_books FOREIGN KEY (bookId) REFERENCES books(id)
+) AUTO_INCREMENT=2000;
+
+
+
+-- -------------------DML-----------------------------------
+
+-- Users table.
+
+INSERT INTO users(name) values("Rajat Arora");
+INSERT INTO users(name) values("Ashish Arora");
+INSERT INTO users(name) values("Deepak Arora");
+INSERT INTO users(name) values("Amit Pundir");
+INSERT INTO users(name) values("Parag Shinde");
+INSERT INTO users(name) values("Abhijeet Malik");
+
+-- Books
+
+INSERT INTO books(name,count) values("Let Us C",2);
+INSERT INTO books(name,count) values("Let Us Python",3);
+INSERT INTO books(name,count) values("Design Patterns",1);
+INSERT INTO books(name,count) values("Introduction to SOLID Priniciples",0);
+INSERT INTO books(name,count) values("Advanced Data Structures",1);
+INSERT INTO books(name,count) values("An overview of Operating Systems",2);
+INSERT INTO books(name,count) values("How to create systems with Low Level Design"1);
+INSERT INTO books(name,count) values("A brief about High Level Design",1);
+
+
+-- User Books
+
+INSERT INTO user_books(userId,bookId) values(1,1001);
+INSERT INTO user_books(userId,bookId) values(1,1002);
+INSERT INTO user_books(userId,bookId) values(2,1003);
+INSERT INTO user_books(userId,bookId) values(4,1003);
+INSERT INTO user_books(userId,bookId) values(5,1004);
+INSERT INTO user_books(userId,bookId) values(5,1006);
+
+-- --------------------------------------------
+
+
