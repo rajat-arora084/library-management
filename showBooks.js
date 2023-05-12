@@ -20,11 +20,11 @@ const showAllBooks = (callback) => {
         res.map(({ id, name, count }) =>
           console.log(id, "\t", name, "\t\t\t", count)
         );
-        callback(res);
+        callback?.(res);
       }
     } catch (err) {
       console.log("Some error occured while fetching Books data");
-      callback([]);
+      callback?.([]);
     } finally {
       console.log("*****************************************");
     }
@@ -36,6 +36,6 @@ const showBooks = () => {
 };
 
 module.exports = {
-  showAllBooks: showAllBooks,
-  showBooks: showBooks,
+  showAllBooks,
+  showBooks,
 };

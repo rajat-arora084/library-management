@@ -1,5 +1,7 @@
+module.exports = {};
+
 const readLine = require("readline-sync");
-const showAllBooks = require("./showBooks");
+const { showBooks } = require("./showBooks");
 const borrowBook = require("./borrowBook");
 
 const mainMenu = () => {
@@ -13,7 +15,7 @@ const mainMenu = () => {
 
   switch (option) {
     case 1: {
-      showAllBooks();
+      showBooks();
       return;
     }
     case 2: {
@@ -31,5 +33,4 @@ const mainMenu = () => {
     }
   }
 };
-
-module.exports = mainMenu;
+module.exports.mainMenu = mainMenu;

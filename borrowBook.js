@@ -27,8 +27,13 @@ const checkIfUserExists = (userId, callback) => {
     try {
       if (err) throw err;
       else {
-        if (res.find(({ id }) => id == userId)) callback(userId);
-        else callback(false);
+        const userExists = res.find(({ id }) => id == userId);
+        console.log(userExists, res);
+        if (userExists) {
+          callback(userId);
+        } else {
+          callback(false);
+        }
       }
     } catch (err) {
       callback(false);
@@ -37,8 +42,6 @@ const checkIfUserExists = (userId, callback) => {
 };
 
 const markEntryForUser = (userId, bookId) => {
-  console.log("mak user", userId, bookId);
-
   connection.query(
     `Insert into user_books(userId,bookId) values(${userId}, ${bookId})`,
     (err, res, fields) => {
@@ -48,14 +51,16 @@ const markEntryForUser = (userId, bookId) => {
           console.log("Book Issued");
         }
       } catch (err) {
-        console.log("err", err);
+        console.log("Some error occured while adding book to user");
+      } finally {
+        redirectToMainMenu();
       }
     }
   );
 };
 
 const issueBook = (userId, bookId, bookCount) => {
-  console.log("isse book");
+  console.log("Issuing book");
   connection.query(
     `update books set count=${bookCount - 1} where id=${bookId}`,
     (err, res, fields) => {
@@ -65,7 +70,9 @@ const issueBook = (userId, bookId, bookCount) => {
           markEntryForUser(userId, bookId);
         }
       } catch (err) {
-        console.log("err on books table", err);
+        console.log("Some error occured while issuing book");
+      } finally {
+        redirectToMainMenu();
       }
     }
   );
@@ -73,36 +80,35 @@ const issueBook = (userId, bookId, bookCount) => {
 
 const proceedWithBookSelection = (userId, alreadyIssuedBooks) => {
   const borrowFunction = (books) => {
+    console.log("borrow func", books.length);
     const bookId = readLine.question("Please enter Book id:");
     const book = books.find(({ id }) => id == bookId);
     if (book) {
-      console.log("Boook is available");
       if (alreadyIssuedBooks.includes(Number(bookId))) {
         console.log("You have already issued this book");
       } else if (book.count == 0) {
-        console.log("Currently unavailable");
+        console.log("Book is not available currently. Book count 0");
+        borrowFunction(books);
       } else {
         // Issue the book.
         issueBook(userId, bookId, book.count);
       }
     } else {
-      console.log("Book is not available currently.");
-      borrowFunction(bookIds);
+      console.log("Book is not available in library.");
+      borrowFunction(books);
     }
   };
-  console.log("proceedWithBookSelection", alreadyIssuedBooks);
   if (alreadyIssuedBooks.length == 2) {
-    console.log("You have already issued 2 books.");
-    // todo returun to main menu.
+    console.log("You have already issued 2 books.", alreadyIssuedBooks);
+    redirectToMainMenu();
   } else {
     showAllBooks(borrowFunction);
   }
 };
 
 const borrowMethod = (userId) => {
-  console.log("borrow", userId);
   if (userId) {
-    console.log("User exists");
+    console.log(`User ${userId} exists....Proceeding with Books catalogue...`);
     checkCurrentIssuedBooks(userId, proceedWithBookSelection);
   } else {
     console.log("User doesn't exists. Redirecting to main menu.");
