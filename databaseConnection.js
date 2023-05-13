@@ -3,7 +3,7 @@ const dbConfig = require("./dbConfig.json");
 
 const { host, user, password, database, port } = dbConfig;
 
-const connection = mysql.createConnection({
+globalThis.connection = mysql.createConnection({
   host: host,
   user: user,
   password: password,
@@ -15,4 +15,3 @@ connection.connect(function (err) {
   if (err) console.log("error", err);
 });
 
-module.exports = connection;

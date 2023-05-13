@@ -1,12 +1,10 @@
-const mainMenu = require("./main");
-const main = require("./main");
-
 const redirectToMainMenu = () => {
-  console.log("Redirecting to main menu in 3 seconds");
+  console.log("Redirecting to main menu in 2 seconds");
   console.log("Clearing Console");
 
   setTimeout(() => {
-    console.clear();
+    //console.clear();
+    const { mainMenu } = require("./main");
     mainMenu();
   }, 2000);
 };

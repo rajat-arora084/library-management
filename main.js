@@ -1,5 +1,6 @@
 const readLine = require("readline-sync");
-const showAllBooks = require("./showBooks");
+const { showBooks } = require("./showBooks");
+const borrowBook = require("./borrowBook");
 
 const mainMenu = () => {
   console.log("*****************MAIN MENU************************");
@@ -12,10 +13,11 @@ const mainMenu = () => {
 
   switch (option) {
     case 1: {
-      showAllBooks();
+      showBooks();
       return;
     }
     case 2: {
+      borrowBook();
       return;
     }
     case 3: {
@@ -26,8 +28,8 @@ const mainMenu = () => {
     }
     default: {
       console.log("Wrong choice");
+	  mainMenu();
     }
   }
 };
-
-module.exports = mainMenu;
+module.exports.mainMenu = mainMenu;
