@@ -1,6 +1,5 @@
 const readLine = require("readline-sync");
 const { main } = require(".");
-const connection = require("./databaseConnection");
 const redirectToMainMenu = require("./redirectToMainMenu");
 
 const promptForMainMenu = () => {

@@ -1,5 +1,4 @@
 const readLine = require("readline-sync");
-const connection = require("./databaseConnection");
 const redirectToMainMenu = require("./redirectToMainMenu");
 const { showAllBooks } = require("./showBooks");
 
@@ -23,12 +22,13 @@ const checkCurrentIssuedBooks = (userId, callback) => {
 };
 
 const checkIfUserExists = (userId, callback) => {
+	console.log("check user existence",userId);
   connection.query("Select * from users", (err, res, fields) => {
     try {
       if (err) throw err;
       else {
         const userExists = res.find(({ id }) => id == userId);
-        console.log(userExists, res);
+        console.log("User exists");
         if (userExists) {
           callback(userId);
         } else {
@@ -36,6 +36,7 @@ const checkIfUserExists = (userId, callback) => {
         }
       }
     } catch (err) {
+		console.log("error")
       callback(false);
     }
   });
@@ -80,12 +81,12 @@ const issueBook = (userId, bookId, bookCount) => {
 
 const proceedWithBookSelection = (userId, alreadyIssuedBooks) => {
   const borrowFunction = (books) => {
-    console.log("borrow func", books.length);
     const bookId = readLine.question("Please enter Book id:");
     const book = books.find(({ id }) => id == bookId);
     if (book) {
       if (alreadyIssuedBooks.includes(Number(bookId))) {
         console.log("You have already issued this book");
+		borrowFunction(books);
       } else if (book.count == 0) {
         console.log("Book is not available currently. Book count 0");
         borrowFunction(books);

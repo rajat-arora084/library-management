@@ -1,5 +1,3 @@
-module.exports = {};
-
 const readLine = require("readline-sync");
 const { showBooks } = require("./showBooks");
 const borrowBook = require("./borrowBook");
@@ -30,6 +28,7 @@ const mainMenu = () => {
     }
     default: {
       console.log("Wrong choice");
+	  mainMenu();
     }
   }
 };
